@@ -1,4 +1,5 @@
 import 'package:firebaseapp/auth_controller.dart';
+import 'package:firebaseapp/password_page.dart';
 import 'package:firebaseapp/signup_page.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -158,12 +159,18 @@ class _LoginPageState extends State<LoginPage> {
                       Expanded(
                         child: Container(),
                       ),
-                      Text(
-                        "Forgot Password ?",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.black54,
-                          fontWeight: FontWeight.bold,
+                      RichText(
+                        text: TextSpan(
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () => Get.to(
+                                  () => ForgotPassword(),
+                                ),
+                          text: "Forgot Password ?",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ),
                     ],
@@ -176,8 +183,10 @@ class _LoginPageState extends State<LoginPage> {
             ),
             GestureDetector(
               onTap: () {
-                AuthController.instance.login(emailController.text.trim(),
-                    passwordController.text.trim());
+                AuthController.instance.login(
+                  emailController.text.trim(),
+                  passwordController.text.trim(),
+                );
               },
               child: Container(
                 width: w * 0.5,
