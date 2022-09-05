@@ -56,7 +56,7 @@ class AuthController extends GetxController {
       Get.snackbar(
         "About Login",
         "Login Message",
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Color.fromARGB(198, 244, 67, 54),
         snackPosition: SnackPosition.BOTTOM,
         titleText: Text(
           "Log in failed",

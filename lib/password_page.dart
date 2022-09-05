@@ -18,11 +18,33 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  // @override
-  // void dispose() {
-  //   emailController.dispose();
-  //   super.dispose();
-  // }
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  Future resetPassword() async {
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: emailController.text.trim());
+      Get.snackbar(
+        "Your mail successfully sended !",
+        "Please check your mailbox",
+        backgroundColor: Color.fromARGB(197, 54, 244, 60),
+        snackPosition: SnackPosition.TOP,
+      );
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      Get.snackbar(
+        "Geçersiz",
+        "Please enter a valid mail",
+        backgroundColor: Color.fromARGB(198, 244, 67, 54),
+        snackPosition: SnackPosition.TOP,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,20 +178,5 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         ),
       ),
     );
-  }
-
-  Future resetPassword() async {
-    try {
-      await FirebaseAuth.instance
-          .sendPasswordResetEmail(email: emailController.text.trim());
-      SnackBar(
-        content: Text("Check your email !"),
-      );
-    } on FirebaseAuthException catch (e) {
-      print(e);
-      SnackBar(
-        content: Text("Enter a validate mail"),
-      );
-    }
   }
 }
